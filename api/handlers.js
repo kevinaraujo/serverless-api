@@ -31,17 +31,17 @@ module.exports.sendResponse = async (event) => {
     }
 
     const resultId = randomUUID()
-    previousResults.set(resultId, { response: req.body, result })
+    previousResults.set(resultId, { response: { name, answers }, result })
     
     return {
         statusCode: 201,
-        body: {
+        body: JSON.stringify({
             resultId,
             __hypermedia: {
               href: `/results.html`,
               query: { id: resultId }
             }
-        },
+        }),
         headers: {
             'Content-Type': 'application/json'
         }
