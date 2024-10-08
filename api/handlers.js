@@ -1,6 +1,13 @@
 'use strict'
-const { randomUUID } = require('crypto')
-const previousResults = new Map()
+
+const { MongoClient, ObjectId } = require("mongodb")
+
+async function connectToDatabase() {
+  const client = new MongoClient(process.env.MONGODB_CONNECTIONSTRING)
+  const connection = await client.connect()
+
+  return connection.db(process.env.MONGODB_DB_NAME)
+}
 
 function extractBody(event) {
     if(!event?.body) {
@@ -14,57 +21,64 @@ function extractBody(event) {
 }
 
 module.exports.sendResponse = async (event) => {
-    const { name, answers } = extractBody(event)
-    const correctQuestions = [3, 1, 0, 2]
+  const { name, answers } = extractBody(event)
+  const correctQuestions = [3, 1, 0, 2]
 
-    const correctAnswers = answers.reduce((acc, answer, index) => {
-      if (answer === correctQuestions[index]) {
-        acc++
-      }
-      return acc
-    }, 0)
+  const totalCorrectAnswers = answers.reduce((acc, answer, index) => {
+    if (answer === correctQuestions[index]) {
+      acc++
+    }
+    return acc
+  }, 0)
+
+  const result = {
+    name,
+    answers,
+    totalCorrectAnswers,
+    totalAnswers: answers.length
+  }
+
+  const client = await connectToDatabase()
+  const collection = await client.collection('results')
+  const { insertedId } = await collection.insertOne(result)
   
-    const result = {
-      name,
-      correctAnswers,
-      totalAnswers: answers.length
-    }
-
-    const resultId = randomUUID()
-    previousResults.set(resultId, { response: { name, answers }, result })
-    
-    return {
-        statusCode: 201,
-        body: JSON.stringify({
-            resultId,
-            __hypermedia: {
-              href: `/results.html`,
-              query: { id: resultId }
-            }
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
+  return {
+      statusCode: 201,
+      body: JSON.stringify({
+          resultId: insertedId,
+          __hypermedia: {
+            href: `/results.html`,
+            query: { id: insertedId }
+          }
+      }),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }
 }
 
 module.exports.getResult = async (event) => {
-    const result = previousResults.get(event.pathParameters.id)
-    if (!result) {
-      return {
-        statusCode: 404,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ error: 'Result not found' })
-      }
-    }
-
+  const client = await connectToDatabase();
+  const collection = await client.collection('results')
+  const result = await collection.findOne({
+    _id: new ObjectId(event.pathParameters.id)
+  })
+ console.log('reulst', result)
+  if (!result) {
     return {
-      statusCode: 200,
+      statusCode: 404,
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(result)
+      body: JSON.stringify({ error: 'Result not found' })
     }
+  }
+
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(result)
+  }
 }
