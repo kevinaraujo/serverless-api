@@ -8,6 +8,9 @@ params:
     dbName: serverless-app
   dev:
     connectionString: mongodb://localhost:27017/${self:params.default.dbName}
+    salt: '41665232692270171661944315883919'
+  prd:
+    connectionString: mongodb+srv://admin:admin123@cluster0.bui6e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 provider:
   name: aws
@@ -15,6 +18,8 @@ provider:
   environment:
     MONGODB_CONNECTIONSTRING: ${param:connectionString}
     MONGODB_DB_NAME: ${param:dbName}
+    SALT: ${param:salt}
+  region: eu-west-1
 
 functions:
   sendResponse:
