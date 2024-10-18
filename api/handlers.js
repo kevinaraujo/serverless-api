@@ -3,11 +3,16 @@
 const { MongoClient, ObjectId } = require("mongodb")
 const { pbkdf2Sync } = require("crypto")
 
+let connectionInstance = null
+
 async function connectToDatabase() {
+  if (connectionInstance) return connectionInstance
+
   const client = new MongoClient(process.env.MONGODB_CONNECTIONSTRING)
   const connection = await client.connect()
 
-  return connection.db(process.env.MONGODB_DB_NAME)
+  connectionInstance = connection.db(process.env.MONGODB_DB_NAME)
+  return connectionInstance
 }
 
 async function basicAuth(event) {
@@ -29,7 +34,7 @@ async function basicAuth(event) {
   }
 
   const [username, password] = Buffer.from(credentials, 'base64').toString().split(':')
-  const hashedPass = pbkdf2Sync(password, process.env.salt, 100000, 64, 'sha512').toString('hex')
+  const hashedPass = pbkdf2Sync(password, process.env.SALT, 100000, 64, 'sha512').toString('hex')
 
   const client = await connectToDatabase()
   const collection = client.collection('users')
@@ -46,7 +51,7 @@ async function basicAuth(event) {
   }
 
   return {
-    id: user_id,
+    id: user.id,
     username:user.username
   }
 }
@@ -110,10 +115,11 @@ module.exports.getResult = async (event) => {
 
   const client = await connectToDatabase();
   const collection = await client.collection('results')
+
   const result = await collection.findOne({
     _id: new ObjectId(event.pathParameters.id)
   })
- console.log('reulst', result)
+
   if (!result) {
     return {
       statusCode: 404,
