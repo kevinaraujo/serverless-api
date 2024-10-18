@@ -9,6 +9,7 @@ params:
   dev:
     connectionString: mongodb://localhost:27017/${self:params.default.dbName}
     salt: '41665232692270171661944315883919'
+    jwtSecret: 'NuPVhPhQZW]jWiVk_b1i2_9M+hNy6=4[rE__=57E@p;j]u95}hr(g$#4ECc!C:7['
   prd:
     connectionString: mongodb+srv://admin:admin123@cluster0.bui6e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
@@ -19,6 +20,7 @@ provider:
     MONGODB_CONNECTIONSTRING: ${param:connectionString}
     MONGODB_DB_NAME: ${param:dbName}
     SALT: ${param:salt}
+    JWT_SECRET: ${param:jwtSecret} 
   region: eu-west-1
 
 functions:
@@ -37,6 +39,15 @@ functions:
       - httpApi:
           path: /api/results/{id}
           method: get
+  login:
+    handler: api/handlers.login
+    events:
+      - httpApi:
+          path: /api/login
+          method: post
+          request:
+            schemas:
+              application/json: ${file(./api/schemas/login.json)}
 
 plugins:
   - serverless-offline
