@@ -17,12 +17,11 @@ async function getUserByCredentials(username, password) {
     const collection = client.collection('users')
     const user = await collection.findOne({
       name: username,
-      password: hashedPass
+      password: password
     })
 
-    if (!user) { 
-        return user
-    }
+    if (!user) return null 
+    return user
 }
 
 async function saveResultsToDatabase(result) {
