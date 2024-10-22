@@ -19,3 +19,7 @@ In order to test login endpoint, I inserted a user into mongoDB local and Mongo 
     user: kevin
     password: 5e2e9949c696bd2b38ada1818ff8ed870f82b823ea9fe4557e72ca798666c3467a63fb783e763d008e5d73acd7af8170cd7dc52dee65d1eaee62b29e6e50939f
 }`
+
+## Remove project from AWS
+
+On folder root, run `sls remove --stage=prd`
