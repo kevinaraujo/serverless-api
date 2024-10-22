@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "c9a6a905-7f64-497c-8d14-f938aeb6fcaf",
+		"name": "Serverless-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2314778"
+	},
+	"item": [
+		{
+			"name": "LOCAL - Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"kevin\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"kevin\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "239"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 13:17:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtldmluIiwiaWQiOiI2NzBjM2MyYjZlOWVkMzc1MzQ3YzA1YmMiLCJpYXQiOjE3Mjk1MTY2NzcsImV4cCI6MTcyOTYwMzA3NywiYXVkIjoic2VydmVybGVzcy1hcHAifQ.GEe4o6Svrp0_PdQuKbcUXpcaU2Xywurk9DGpLyYPDHk\"\n}"
+				}
+			]
+		},
+		{
+			"name": "LOCAL - Send Answers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtldmluIiwiaWQiOiI2NzBjM2MyYjZlOWVkMzc1MzQ3YzA1YmMiLCJpYXQiOjE3Mjk1MTY2NzcsImV4cCI6MTcyOTYwMzA3NywiYXVkIjoic2VydmVybGVzcy1hcHAifQ.GEe4o6Svrp0_PdQuKbcUXpcaU2Xywurk9DGpLyYPDHk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"kevin\",\n    \"answers\": [1,2,3,4]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/results",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"results"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"kevin\",\n    \"answers\": [1,2,3,4]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/results",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"results"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "121"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 13:20:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultId\": \"6716550822245de1a3ac8a23\",\n    \"__hypermedia\": {\n        \"href\": \"/results.html\",\n        \"query\": {\n            \"id\": \"6716550822245de1a3ac8a23\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "LOCAL - Get results by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtldmluIiwiaWQiOiI2NzBjM2MyYjZlOWVkMzc1MzQ3YzA1YmMiLCJpYXQiOjE3Mjk1MTY2NzcsImV4cCI6MTcyOTYwMzA3NywiYXVkIjoic2VydmVybGVzcy1hcHAifQ.GEe4o6Svrp0_PdQuKbcUXpcaU2Xywurk9DGpLyYPDHk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtldmluIiwiaWQiOiI2NzBjM2MyYjZlOWVkMzc1MzQ3YzA1YmMiLCJpYXQiOjE3Mjk1MTY2NzcsImV4cCI6MTcyOTYwMzA3NywiYXVkIjoic2VydmVybGVzcy1hcHAifQ.GEe4o6Svrp0_PdQuKbcUXpcaU2Xywurk9DGpLyYPDHk",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/results/6716550822245de1a3ac8a23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"results",
+						"6716550822245de1a3ac8a23"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtldmluIiwiaWQiOiI2NzBjM2MyYjZlOWVkMzc1MzQ3YzA1YmMiLCJpYXQiOjE3Mjk1MTY2NzcsImV4cCI6MTcyOTYwMzA3NywiYXVkIjoic2VydmVybGVzcy1hcHAifQ.GEe4o6Svrp0_PdQuKbcUXpcaU2Xywurk9DGpLyYPDHk",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/results/6716550822245de1a3ac8a23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"results",
+								"6716550822245de1a3ac8a23"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "110"
+						},
+						{
+							"key": "accept-ranges",
+							"value": "bytes"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 13:21:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"6716550822245de1a3ac8a23\",\n    \"name\": \"kevin\",\n    \"answers\": [\n        1,\n        2,\n        3,\n        4\n    ],\n    \"totalCorrectAnswers\": 0,\n    \"totalAnswers\": 4\n}"
+				}
+			]
+		},
+		{
+			"name": "PRD - Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"kevin\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://8yt74v1hll.execute-api.eu-west-1.amazonaws.com/api/login",
+					"protocol": "https",
+					"host": [
+						"8yt74v1hll",
+						"execute-api",
+						"eu-west-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"kevin\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://8yt74v1hll.execute-api.eu-west-1.amazonaws.com/api/login",
+							"protocol": "https",
+							"host": [
+								"8yt74v1hll",
+								"execute-api",
+								"eu-west-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 13:38:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "239"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Apigw-Requestid",
+							"value": "AALmwiAPDoEEMgg="
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtldmluIiwiaWQiOiI2NzE2NTkyZjY2NGMzZTkxOTUyNzhiYmUiLCJpYXQiOjE3Mjk1MTc5MTgsImV4cCI6MTcyOTYwNDMxOCwiYXVkIjoic2VydmVybGVzcy1hcHAifQ.3GeDjXfq7LCqqPJQJSwCKj6WPXnrPOhSMZ3q9RcOZPc\"\n}"
+				}
+			]
+		}
+	]
+}
